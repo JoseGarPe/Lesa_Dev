@@ -11,15 +11,18 @@
     <title>Estacion 2</title>
   </head>
   <body>
-    <h1>Que area se trabajara?</h1>
-    <form action="#">
+    <div class="container">
+        <h1>Que area se trabajara?</h1>
+        <form action="#">
 
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Recipient's username" id="search" autofocus aria-label="Recipient's username" aria-describedby="button-addon2" onkeyup="myFunction()">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-          </div>
-    </form>
-      <a id="opener">Open window</a>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Recipient's username" id="search" autofocus aria-label="Recipient's username" aria-describedby="button-addon2" onkeyup="myFunction()">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+            </div>
+        </form>
+    </div>
+
+
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -37,10 +40,16 @@ function logKey(e) {
             console.log('Recubrimiento Dipping');
             if (!w || w.closed) {
                 w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=2&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-               
-            } else {
-                console.log('window is already opened');
-                 w.close();
+              } else {
+                     w.close();                
+                 if (log.value=='ES3000RED' && w.closed) {
+                    console.log('window is already opened');
+                    w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=2&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                 }else if (log.value=='ES3000RES' && w.closed) {
+                    w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=8&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                    }else if (log.value=='ES30000AR' && w.closed) {
+                        w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=3&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                    }
             }
             w.focus();
             log.value="";
@@ -48,9 +57,16 @@ function logKey(e) {
             console.log('Recubrimiento Spinning');
             if (!w || w.closed) {
                 w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=8&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-            } else {
-                console.log('window is already opened');
-                 w.close();
+            } else {  
+                     w.close();
+                 if (log.value=='ES3000RED' && w.closed) {
+                    w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=2&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");  
+                 }else if (log.value=='ES3000RES' && w.closed) {
+                      console.log('window is already opened'); 
+                      w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=8&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                    }else if (log.value=='ES30000AR' && w.closed) {
+                        w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=3&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                    }
             }
             w.focus();
             log.value="";
@@ -59,8 +75,15 @@ function logKey(e) {
             if (!w || w.closed) {
                 w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=3&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
             } else {
-                console.log('window is already opened');
-                 w.close();
+                     w.close();                
+                if (log.value=='ES3000RED' && w.closed) {
+                    w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=2&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");  
+                 }else if (log.value=='ES3000RES' && w.closed) {
+                    w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=8&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                    }else if (log.value=='ES30000AR' && w.closed) {
+                        console.log('window is already opened');
+                        w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=3&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                    }
             }
             w.focus();
             log.value="";
@@ -69,18 +92,6 @@ function logKey(e) {
     return false;
   }
 }
-
-function myFunction() {
-   /* if ($('#search').val().length == 8) {
-    alert('Ingresara a Recubrimiento');
-    return false;
-  }*/
-    
-}
-
-        var a = document.getElementById('opener'), w;        
-            a.onclick = function() {
-            };
     </script>
   </body>
 </html>
