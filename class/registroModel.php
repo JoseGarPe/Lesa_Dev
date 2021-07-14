@@ -125,6 +125,53 @@
             public function setEstado($id) {
                 $this->estado = $id;
             }
+            //--------------------------------------------------------------------------------//
+            public function saveMensajero()
+            {
+                $query="INSERT INTO registro_trabajos(id_stickers,fecha_mensajero,hora_mensajero,estado,id_sucursal) VALUES($this->id_stickers,'$this->fecha_mensajero','$this->hora_mensajero','Recibido por mensajero',$this->id_sucusal);";
+                $save=$this->db->query($query);
+                if ($save==true) {
+                    return true;
+                }else {
+                    
+                    return false;
+                }   
+            }
+            public function saveRecepcion()
+            {
+                $query="UPDATE registro_trabajos SET fecha_recibido='$this->fecha_recibido',hora_recibido='$this->hora_recibido',estado='Recibido en Recepcion',updated_at=CURDATE() WHERE id_stickers=$this->id_stickers";
+                $save=$this->db->query($query);
+                if ($save==true) {
+                    return true;
+                }else {
+                    
+                    return false;
+                }   
+            }
+            public function saveLaboratorio()
+            {
+                $query="UPDATE registro_trabajos SET orden_pedido='$this->orden_pedido',fecha_labotario='$this->fecha_labotario',estado='Recibido en Recepcion',updated_at=CURDATE() WHERE id_stickers=$this->id_stickers";
+                $save=$this->db->query($query);
+                if ($save==true) {
+                    return true;
+                }else {
+                    
+                    return false;
+                }   
+            }
+            
+            public function saveSalida()
+            {
+                $query="UPDATE registro_trabajos SET fecha_salida='$this->fecha_salida',hora_salida='$this->hora_salida',estado='Salida de LESA',updated_at=CURDATE() WHERE id_stickers=$this->id_stickers";
+                $save=$this->db->query($query);
+                if ($save==true) {
+                    return true;
+                }else {
+                    
+                    return false;
+                }   
+            }
+            
 
         
     }
