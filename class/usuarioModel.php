@@ -140,7 +140,7 @@ class Usuario extends Conexion
       return $ListUsuario;
   }
   public function login(){
-      $query1="SELECT u.*, tu.tipo_usuario as tipo FROM usuarios u INNER JOIN tipo_usuario tu ON tu.id_tipo_usuario=u.id_tipo_usuario WHERE u.usuario='".$this->usuario."' AND u.pass='".$this->pass."'";
+      $query1="SELECT u.*, tu.tipo_usuario as tipo FROM usuario u INNER JOIN tipo_usuario tu ON tu.id_tipo_usuario=u.id_tipo_usuario WHERE u.usuario='".$this->usuario."' AND u.pass='".$this->pass."'";
       $selectall1=$this->db->query($query1);
       $ListUsuario=$selectall1->fetch_all(MYSQLI_ASSOC);
 
@@ -163,6 +163,12 @@ class Usuario extends Conexion
           
       }
       //------------------------------------------------------------------//
-
+      public function selectTipoUsuario($codigo)
+      {
+          $query="SELECT * FROM tipo_usuario";
+          $selectall=$this->db->query($query);
+          $ListUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
+          return $ListUsuario;
+      }
  }
 ?>

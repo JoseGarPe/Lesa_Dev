@@ -43,7 +43,7 @@
     //--------------------------------------------------------------------------//
         public function save()
         {
-            $query="INSERT INTO `cliente`(`id_cliente`, `cliente`, `estado`) VALUES(NULL,'".$this->cliente."','".$this->estado."');";
+            $query="INSERT INTO `cliente`(`id_cliente`, `cliente`, `estado`) VALUES(NULL,'".$this->cliente."','Activo');";
             $save=$this->db->query($query);
             if ($save==true) {
                 return true;
@@ -64,7 +64,7 @@
         }
         public function delete()
         {
-        $query="DELETE FROM cliente WHERE id_cliente='".$this->id_cliente."'"; 
+        $query="UPDATE cliente SET estado='$this->estado' WHERE id_cliente='".$this->id_cliente."'"; 
         $delete=$this->db->query($query);
         if ($delete == true) {
             return true;

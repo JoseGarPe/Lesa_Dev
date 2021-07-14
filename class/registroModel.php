@@ -171,6 +171,17 @@
                     return false;
                 }   
             }
+            public function selectAll(){
+                $query="SELECT rt.*,s.stickers,r.ruta,u.nombre,c.cliente,su.sucursal FROM registro_trabajos rt 
+                INNER JOIN stickers s ON s.id_stickers = rt.id_stickers 
+                INNER JOIN ruta r on r.id_ruta = s.id_ruta 
+                INNER JOIN usuario u ON u.id_usuario = r.id_usuario 
+                INNER JOIN sucursal su ON su.id_sucursal = rt.id_sucursal 
+                INNER JOIN cliente c ON c.id_cliente = su.id_cliente";
+                $selectall=$this->db->query($query);
+                $ListRegistros=$selectall->fetch_all(MYSQLI_ASSOC);
+                return $ListRegistros;
+            }
             
 
         
