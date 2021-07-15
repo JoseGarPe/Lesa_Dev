@@ -2,7 +2,7 @@
 <?php
     //--------------------------------------------//
     $id_usuario = $_POST['id_usuario'];
-    require_once "../../class/Usuario.php";
+    require_once "../../class/usuarioModel.php";
     $Usuarios = new Usuario();
     $listUsua = $Usuarios->selectOne($id_usuario);
     foreach ($listUsua as $value) {
@@ -17,29 +17,34 @@
             </div>
             
             <div class="form-group">
-                <label for="exampleInputEmail1">Username</label>
-                <input type="text" class="form-control" id="usernameActualizar" name="username" value="<?php echo $value['username']?>" aria-describedby="usernameHelp">
-                <small id="usernameHelp" class="form-text text-muted">Nombre de usuario.</small>
+                <label for="exampleInputEmail1">Usuario</label>
+                <input type="text" class="form-control" id="usuarioActualizar" name="usuario" value="<?php echo $value['usuario']?>" aria-describedby="usernameHelp">
+                <small id="usernameHelp" class="form-text text-muted">Usuario.</small>
             </div>
 
             <div class="form-group">
-                <label for="exampleInputEmail1">Correo</label>
-                <input type="text" class="form-control" id="correoActualizar" name="correoActualizar" aria-describedby="emailHelp">
+                <label for="exampleInputEmail1">Placa</label>
+                <input type="text" class="form-control" id="placaActualizar" value="<?php echo $value['placa']?>" name="placaActualizar" aria-describedby="emailHelp">
+                <small id="emailHelp" class="form-text text-muted">example@site.com.</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Telefono</label>
+                <input type="text" class="form-control" id="telefonoActualizar" value="<?php echo $value['telefono']?>" name="telefonoActualizar" aria-describedby="emailHelp">
                 <small id="emailHelp" class="form-text text-muted">example@site.com.</small>
             </div>
 
             <div class="form-group">
-                <label for="exampleInputPassword1">Tipo de acceso</label>
-                <select name="id_accesoActualizar" id="id_accesoActualizar" class="form-control">
+                <label for="exampleInputPassword1">Tipo de usuario</label>
+                <select name="id_tipo_usuarioActualizar" id="id_tipo_usuarioActualizar" class="form-control">
                   <?php 
-                     require_once "../../class/Accesos.php";
-                     $NivelA = new Acceso();
-                     $ListAccesos = $NivelA->selectALL();
+                     require_once "../../class/usuarioModel.php";
+                     $NivelA = new Usuario();
+                     $ListAccesos = $NivelA->selectTipoUsuario();
                      foreach ((array)$ListAccesos as $row) {
-                        if ($value['id_acceso']==$row['id_acceso']) {
-                             echo '<option value="'.$row['id_acceso'].'" selected>'.$row['nombre'].'</option>';
+                        if ($value['id_tipo_usuario']==$row['id_tipo_usuario']) {
+                             echo '<option value="'.$row['id_tipo_usuario'].'" selected>'.$row['tipo_usuario'].'</option>';
                         }else{
-                             echo '<option value="'.$row['id_acceso'].'">'.$row['nombre'].'</option>'; 
+                             echo '<option value="'.$row['id_tipo_usuario'].'">'.$row['tipo_usuario'].'</option>'; 
                         }
                      }
                   ?>
@@ -59,19 +64,15 @@ document.getElementById('actualizar').addEventListener('click', actualizarInform
                       function actualizarInformacion(){
 
                         var nombre=document.getElementById('nombreActualizar').value;
-                        var username=document.getElementById('usernameActualizar').value;
-                        var correo=document.getElementById('correoActualizar').value;
+                        var usuario=document.getElementById('usuarioActualizar').value;
+                        var telefono=document.getElementById('telefonoActualizar').value;
                         var id_usuario=document.getElementById('id_usuario').value;
-                        var id_acceso=document.getElementById('id_accesoActualizar').value;
-                        console.log('Datos: ');
-                       console.log('nombre: '+nombre);
-                       console.log('username: '+username);
-                       console.log('id_usuario: '+id_usuario);
-                       console.log('acceso: '+id_acceso);
+                        var id_tipo_usuario=document.getElementById('id_tipo_usuarioActualizar').value;
+                        var placa=document.getElementById('placaActualizar').value;
                       $.ajax({  
-                            url:"http://localhost/Monitoreo/controladores/usuarioControlador.php?accion=modificar",  
+                            url:`http://${server}/Lesa_Dev/controlador/usuarioController.php?accion=modificar`,  
                             method:"POST",  
-                            data:{id_usuario:id_usuario,nombre:nombre,username:username,id_acceso:id_acceso,correo:correo},  
+                            data:{id_usuario:id_usuario,nombre:nombre,usuario:usuario,id_tipo_usuario:id_tipo_usuario,telefono:telefono,placa:placa},  
                             success:function(data){  
                                       var array = JSON.parse(data);
                                       if (array.type == "success") {

@@ -33,6 +33,7 @@ $ListUsua = $Usuarios->selectALL();
 
   <!-- Custom styles for this page -->
   <link href="../src/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <script src="../src/vendor/jquery/jquery.min.js"></script>
 
 </head>
 
@@ -181,7 +182,6 @@ $ListUsua = $Usuarios->selectALL();
 
 
   <!-- Bootstrap core JavaScript-->
-  <script src="../src/vendor/jquery/jquery.min.js"></script>
   <script src="../src/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->

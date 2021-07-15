@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Telefono</label>
-                <input type="text" class="form-control" id="placa" name="placa" aria-describedby="emailHelp">
+                <input type="text" class="form-control" id="telefono" name="telefono" aria-describedby="emailHelp">
                 <small id="emailHelp" class="form-text text-muted">7777-0000</small>
             </div>
 
@@ -42,7 +42,7 @@
                 <select name="id_tipo_usuario" id="id_tipo_usuario" class="form-control">
                   <?php 
                      require_once "../class/usuarioModel.php";
-                     $NivelA = new Acceso();
+                     $NivelA = new Usuario();
                      $ListUsua = $NivelA->selectTipoUsuario();
                      foreach ((array)$ListUsua as $row) {
                       echo '<option value="'.$row['id_tipo_usuario'].'">'.$row['tipo_usuario'].'</option>';
@@ -79,6 +79,7 @@ document.getElementById('guardar').addEventListener('click', enviarInformacion);
                         formData.append('usuario', usuario);
                         formData.append('pass', pass);
                         formData.append('telefono', telefono);
+                        formData.append('placa', placa);
                         formData.append('id_tipo_usuario', id_tipo_usuario);
                         var xhr = new XMLHttpRequest();
                         xhr.onreadystatechange = function(){
@@ -102,7 +103,7 @@ document.getElementById('guardar').addEventListener('click', enviarInformacion);
                           EN ESTE CASO EL CLIENTE Y EL ID
                         */
                         //xhr.open("POST", "https://pruebafiado.000webhostapp.com/sitioWeb/php/controladores/variablesSesiones.php", true);
-                        xhr.open("POST", "http://localhost/Lesa_Dev/controlador/usuarioController.php?accion=guardar", true);
+                        xhr.open("POST", `http://${server}/Lesa_Dev/controlador/usuarioController.php?accion=guardar`, true);
                         xhr.send(formData);
                       }
                        

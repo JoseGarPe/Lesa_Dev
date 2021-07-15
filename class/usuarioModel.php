@@ -104,7 +104,7 @@ class Usuario extends Conexion
   }
    public function update()
   {
-      $query="UPDATE usuario SET nombre='".$this->nombre."',usuario='".$this->usuario."',placa=".$this->placa.", telefono='".$this->telefono."' WHERE id_usuario=".$this->id_usuario."";
+      $query="UPDATE usuario SET nombre='".$this->nombre."',usuario='".$this->usuario."',placa='".$this->placa."', telefono='".$this->telefono."' WHERE id_usuario=".$this->id_usuario."";
       $update=$this->db->query($query);
       if ($update==true) {
           return true;
@@ -163,7 +163,7 @@ class Usuario extends Conexion
           
       }
       //------------------------------------------------------------------//
-      public function selectTipoUsuario($codigo)
+      public function selectTipoUsuario()
       {
           $query="SELECT * FROM tipo_usuario";
           $selectall=$this->db->query($query);

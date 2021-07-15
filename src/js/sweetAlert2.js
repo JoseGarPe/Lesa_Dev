@@ -15,7 +15,7 @@
       title: titulo, 
       html: texto, 
       icon: tipo, 
-      confirmButtonText: '<a style="color:white;" href="http://localhost/Monitoreo/list/'+url+'">Aceptar</a>', 
+      confirmButtonText: `<a style="color:white;" href="http://${server}/Lesa_Dev/list/${url}">Aceptar</a>`, 
       allowOutsideClick: false,
       allowEscapeKey: false})
   }

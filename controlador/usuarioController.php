@@ -32,6 +32,11 @@ if ($accion=='guardar') {
 	$placa=$_POST['placa'];
 }else{
 	$placa=NULL;
+} 
+if (isset($_POST['telefono'])) {
+	$telefono=$_POST['telefono'];
+}else{
+	$telefono=NULL;
 }
 
   if (isset($_POST['id_tipo_usuario'])) {
@@ -47,7 +52,7 @@ if ($accion=='guardar') {
  $usua->setPass($pass);
  $usua->setPlaca($placa);
  $usua->setId_tipo_usuario($id_tipo_usuario);
- $usua->setTelefono($estado);
+ $usua->setTelefono($telefono);
  $save =$usua->save();
 
 	if ($save==TRUE) {
@@ -119,11 +124,17 @@ elseif($accion=="modificar") {
 	}else{
 		$usuario=NULL;
 	} 
+	
 	if (isset($_POST['placa'])) {
 		$placa=$_POST['placa'];
 	}else{
-		$usuario=NULL;
+		$placa=NULL;
 	} 
+	if (isset($_POST['telefono'])) {
+		$telefono=$_POST['telefono'];
+	}else{
+		$telefono=NULL;
+	}
 	 if (isset($_POST['id_tipo_usuario'])) {
 		$id_tipo_usuario=$_POST['id_tipo_usuario'];
 	}else{
@@ -136,7 +147,7 @@ elseif($accion=="modificar") {
     $usua->setPlaca($placa);
     $usua->setId_tipo_usuario($id_tipo_usuario);
     $usua->setId_usuario($_POST['id_usuario']);
-    $usua->setTelefono($estado);
+    $usua->setTelefono($telefono);
 	$update=$usua->update();
 	if ($update==true) {
 		$informacion = [

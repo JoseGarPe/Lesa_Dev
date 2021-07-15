@@ -77,5 +77,18 @@
       </div>
 
     </ul>
-
+<script>
+  //-------------------- Hosting ----------------------------------//
+const serverHosting = window.location.hostname;
+const serverPort = window.location.port;
+console.log(serverPort);
+let server ='';
+if (serverPort!=8080 && serverPort!=4433 ) {
+ server = `${serverHosting}`;
+} else {
+server = `${serverHosting}:${serverPort}`;
+}
+console.log(server);
+//---------------------------------------------------------------//
+</script>
     

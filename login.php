@@ -81,6 +81,18 @@
    <script src="src/js/sweetalert2.min.js"></script>
    <script src="src/js/sweetAlert2.js"></script>
   <script>
+  //-------------------- Hosting ----------------------------------//
+const serverHosting = window.location.hostname;
+const serverPort = window.location.port;
+console.log(serverPort);
+let server ='';
+if (serverPort!=8080 && serverPort!=4433 ) {
+ server = `${serverHosting}`;
+} else {
+server = `${serverHosting}:${serverPort}`;
+}
+console.log(server);
+//---------------------------------------------------------------//
   
 document.getElementById('login').addEventListener('click', enviarInformacion);
                       function enviarInformacion(){
@@ -88,7 +100,7 @@ document.getElementById('login').addEventListener('click', enviarInformacion);
                         var contrasena=document.getElementById('contrasena').value;
                         console.log('Datos: '+usuario+','+contrasena);
                       $.ajax({  
-                            url:"http://localhost/Lesa_Dev/controlador/usuarioController.php?accion=login",  
+                            url:`http://${server}/Lesa_Dev/controlador/usuarioController.php?accion=login`,  
                             method:"POST",  
                             data:{usuario:usuario,pass:contrasena},  
                             success:function(data){  
@@ -107,7 +119,7 @@ document.getElementById('login').addEventListener('click', enviarInformacion);
       title: titulo, 
       html: texto, 
       icon: tipo, 
-      confirmButtonText: '<a style="color:white;" href="http://localhost/Lesa_Dev/'+url+'">Aceptar</a>', 
+      confirmButtonText: `<a style="color:white;" href="http://${server}/Lesa_Dev/${url}">Aceptar</a>`, 
       allowOutsideClick: false,
       allowEscapeKey: false})
   }
