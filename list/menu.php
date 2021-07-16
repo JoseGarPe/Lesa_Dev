@@ -58,7 +58,21 @@
         </div>
       </li>
 
-   
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseClientes" aria-expanded="true" aria-controls="collapseClientes">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Clientes</span>
+        </a>
+        <div id="collapseClientes" class="collapse show " aria-labelledby="headingClientes" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Escoja una Opcion</h6>
+
+            <a class="collapse-item" href="<?php echo (url_actual()!= null)? 'clientes.php':'list/clientes.php';?>">Clientes</a>
+            <a class="collapse-item" href="<?php echo (url_actual()!= null)? 'sucursales.php':'list/sucursales.php';?>">Sucursales</a>
+          </div>
+        </div>
+      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider">

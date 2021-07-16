@@ -4,9 +4,14 @@ session_start();
 if (!isset($_SESSION['logged-in']) || $_SESSION['logged-in']==false ) {
   header('Location: ../login.php');
 }
-require_once "../class/usuarioModel.php";
-$Usuarios = new Usuario();
-$ListUsua = $Usuarios->selectALL();
+require_once "../class/sucursalModel.php";
+$Sucursales = new Sucursal();
+if (isset($_GET['id'])) {
+    $ListUsua = $Sucursales->selectALLOneCliente($_GET['id']);
+    $id_cliente= $_GET['id'];
+}else{
+    $ListUsua = $Sucursales->selectALL();
+}
 
 ?>
 <!DOCTYPE html>
@@ -59,24 +64,24 @@ $ListUsua = $Usuarios->selectALL();
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Mantenimiento Usuarios</h1>
-          <p class="mb-4">Administracion de Usuarios, Creacion y modificacion</p>
+          <h1 class="h3 mb-2 text-gray-800">Mantenimiento Sucursales</h1>
+          <p class="mb-4">Administracion de Sucursales, Creacion y modificacion</p>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Usuarios Existentes</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Sucursales Existentes</h6>
             </br>
               <a href="#" class="btn btn-success btn-icon-split" data-toggle="modal" data-target="#staticBackdrop">
                     <span class="icon text-white-50">
                       <i class="fas fa-user"></i>
                     </span>
-                    <span class="text">Agregar Usuarios</span>
+                    <span class="text">Agregar Sucursales</span>
                   </a>
             </div>
             <div class="card-body">
               
-              <!-- tabla de usuarios -->
+              <!-- tabla de Sucursales -->
 
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -84,10 +89,8 @@ $ListUsua = $Usuarios->selectALL();
                     <tr>
                       <th>ID</th>
                       <th>Nombre</th>
-                      <th>Username</th>
-                      <th>Telefono</th>
-                      <th>Acceso</th>
-                      <th>Estado</th>
+                      <th>Direccion</th>
+                      <th>Cliente</th>
                       <th>Editar</th>
                       <th>Eliminar</th>
                     </tr>
@@ -100,16 +103,14 @@ $ListUsua = $Usuarios->selectALL();
                       ?>
 
                       <tr>
-                      <td> <?php echo $dato['id_usuario']; ?> </td>
-                      <td> <?php echo $dato['nombre']; ?> </td>
-                      <td><?php echo $dato['usuario']; ?></td>
-                      <td><?php echo $dato['telefono']; ?> </td>
-                      <td><?php echo $dato['tipo_usuario']; ?></td>
-                      <td><?php echo $dato['estado']; ?></td>
-                      <td><input type="button" name="edit" value="Editar" id_usuario="<?php echo $dato["id_usuario"]?>" class="btn btn-warning update_data" /></td>
+                      <td> <?php echo $dato['id_sucursal']; ?> </td>
+                      <td> <?php echo $dato['sucursal']; ?> </td>
+                      <td><?php echo $dato['direccion']; ?></td>
+                      <td><?php echo $dato['cliente']; ?></td>
+                      <td><input type="button" name="edit" value="Editar" id_cliente="<?php echo $dato["id_sucursal"]?>" class="btn btn-warning update_data" /></td>
                       <td>
                          <div class="btn-toolbar" role="toolbar">
-                          <button type="button"  name="edit" value="Eliminar" id_usuario="<?php echo $dato["id_usuario"]?>" class=" btn btn-danger delete_data" ><i class="fas fa-trash-alt"></i></button>
+                          <button type="button"  name="edit" value="Eliminar" id_cliente="<?php echo $dato["id_sucursal"]?>" class=" btn btn-danger delete_data" ><i class="fas fa-trash-alt"></i></button>
                          </div>
                       </td>
                       
@@ -123,7 +124,7 @@ $ListUsua = $Usuarios->selectALL();
                 </table>
               </div>
 
-              <!-- fin Tabla de Usuarios -->
+              <!-- fin Tabla de Sucursales -->
 
 
 
@@ -141,7 +142,7 @@ $ListUsua = $Usuarios->selectALL();
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Sistema de Monitoreo y Seguimiento 2020</span>
+            <span>Copyright &copy; Sistema de Mensajeria LESA</span>
           </div>
         </div>
       </footer>
@@ -161,8 +162,8 @@ $ListUsua = $Usuarios->selectALL();
   <!-- Logout Modal-->
  
 <?php include_once 'logout.php'?>
-  <!-- Modal agregar usuarios -->
-<?php include_once '../views/Usuarios/saveUsuarios.php'?>
+  <!-- Modal agregar Sucursales -->
+<?php include_once '../views/Sucursales/saveSucursales.php'?>
 
 <div id="dataModal3" class="modal fade">  
                                   <div class="modal-dialog">  
@@ -178,9 +179,9 @@ $ListUsua = $Usuarios->selectALL();
                                        </div>  
                                   </div>  
 </div>
-  <!-- Modal modificar usuarios -->
+  <!-- Modal modificar Sucursales -->
 
-  <!-- Modal eliminar usuarios -->
+  <!-- Modal eliminar Sucursales -->
 
 
   <!-- Bootstrap core JavaScript-->
@@ -204,13 +205,13 @@ $ListUsua = $Usuarios->selectALL();
  $(document).ready(function(){  
       //------------------------------------------------------//
       $(document).on('click', '.update_data', function(){  
-          var id_usuario = $(this).attr("id_usuario");  
-           if(id_usuario != '')  
+          var id_cliente = $(this).attr("id_cliente");  
+           if(id_cliente != '')  
            {  
                 $.ajax({  
-                     url:"../views/Usuarios/updateUsuarios.php",  
+                     url:"../views/Sucursales/updateSucursales.php",  
                      method:"POST",  
-                     data:{id_usuario:id_usuario},  
+                     data:{id_cliente:id_cliente},  
                      success:function(data){  
                           $('#employee_forms3').html(data);  
                           $('#dataModal3').modal('show');  
@@ -220,21 +221,21 @@ $ListUsua = $Usuarios->selectALL();
       }); 
       //------------------------------------------------------------//
       $(document).on('click', '.delete_data', function(){  
-          var id_usuario = $(this).attr("id_usuario");  
-           if(id_usuario != '')  
+          var id_cliente = $(this).attr("id_cliente");  
+           if(id_cliente != '')  
            {  
                 $.ajax({  
-                     url:"../views/Usuarios/deleteUsuarios.php",  
+                     url:"../views/Sucursales/deleteSucursales.php",  
                      method:"POST",  
-                     data:{id_usuario:id_usuario},  
+                     data:{id_cliente:id_cliente},  
                      success:function(data){  
                           $('#employee_forms3').html(data);  
                           $('#dataModal3').modal('show');  
                      }  
                 });  
            }   
-      }); 
-      //------------------------------------------------------------//
+      });  
+      //------------------------------------------------------//
     });
 </script>
 </body>

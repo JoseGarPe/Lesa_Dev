@@ -19,6 +19,7 @@ class Usuario extends Conexion
  private $telefono;
  private $placa;
  private $id_tipo_usuario;
+ private $estado;
 
  public function __construct()
 	{
@@ -31,6 +32,7 @@ class Usuario extends Conexion
         $this->telefono="";
         $this->placa="";
         $this->id_tipo_usuario="";
+        $this->estado="";
     }
 
 
@@ -88,6 +90,13 @@ class Usuario extends Conexion
 
     public function setTelefono($telefono) {
         $this->telefono = $telefono;
+    }
+    public function getEstado() {
+        return $this->estado;
+    }
+
+    public function setEstado($estado) {
+        $this->estado = $estado;
     }
   //---------------------Funciones----------------------------//
   public function save()
@@ -170,5 +179,17 @@ class Usuario extends Conexion
           $ListUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
           return $ListUsuario;
       }
+      
+  public function updateStatus()
+  {
+     $query="UPDATE usuario SET estado='$this->estado' WHERE id_usuario=".$this->id_usuario.""; 
+     $delete=$this->db->query($query);
+     if ($delete == true) {
+      return true;
+     }else{
+      return false;
+     }
+
+  }
  }
 ?>

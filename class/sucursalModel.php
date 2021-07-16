@@ -7,6 +7,8 @@
         private $sucursal;
         private $direccion;
         private $id_cliente;
+        private $nombre_contacto;
+        private $telefono;
 
         public function __construct()
             {
@@ -16,6 +18,8 @@
                 $this->sucursal = "";
                 $this->direccion = "";
                 $this->id_cliente = "";
+                $this->nombre_contacto = "";
+                $this->telefono = "";
             }
     
 
@@ -48,11 +52,27 @@
     public function setId_cliente($id) {
         $this->id_cliente = $id;
     }
+    public function getNombre_contacto() {
+        return $this->nombre_contacto;
+    }
+
+    public function setNombre_contacto($id) {
+        $this->nombre_contacto = $id;
+    }
+    public function getTelefono() {
+        return $this->telefono;
+    }
+
+    public function setTelefono($id) {
+        $this->telefono = $id;
+    }
+
+
 
     //--------------------------------------------------------------------------//
         public function save()
         {
-            $query="INSERT INTO `sucursal`(`id_sucursal`, `sucursal`, `direccion`, `id_cliente`) VALUES(NULL,'".$this->sucursal."','".$this->direccion."','".$this->id_cliente."');";
+            $query="INSERT INTO `sucursal`(`id_sucursal`, `sucursal`, `direccion`, `id_cliente`, `nombre_contacto`, `telefono`) VALUES(NULL,'".$this->sucursal."','".$this->direccion."','".$this->id_cliente."','".$this->nombre_contacto."','".$this->telefono."');";
             $save=$this->db->query($query);
             if ($save==true) {
                 return true;
@@ -63,7 +83,7 @@
 
         public function update()
         {
-            $query="UPDATE sucursal SET sucursal='".$this->sucursal."', direccion='".$this->direccion."',id_cliente='".$this->id_cliente."' WHERE id_sucursal='".$this->id_sucursal."'";
+            $query="UPDATE sucursal SET sucursal='".$this->sucursal."', direccion='".$this->direccion."',id_cliente='".$this->id_cliente."',nombre_contacto='".$this->nombre_contacto."',telefono='".$this->telefono."' WHERE id_sucursal='".$this->id_sucursal."'";
             $update=$this->db->query($query);
             if ($update==true) {
                 return true;
@@ -84,7 +104,7 @@
         }
         public function selectALL()
         {
-            $query="SELECT * FROM sucursal";
+            $query="SELECT s.*,c.cliente FROM sucursal s INNER JOIN cliente c on c.id_cliente=s.id_cliente";
             $selectall=$this->db->query($query);
             $ListTipoUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
             return $ListTipoUsuario;
@@ -97,5 +117,12 @@
             return $ListTipoUsuario;
         }
 
+        public function selectALLOneCliente($id_cliente)
+        {
+            $query="SELECT s.*,c.cliente FROM sucursal s INNER JOIN cliente c on c.id_cliente=s.id_cliente WHERE s.id_cliente = $id_cliente";
+            $selectall=$this->db->query($query);
+            $ListTipoUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
+            return $ListTipoUsuario;
+        }
     }
 ?>

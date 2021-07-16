@@ -43,7 +43,7 @@
     //--------------------------------------------------------------------------//
         public function save()
         {
-            $query="INSERT INTO `cliente`(`id_cliente`, `cliente`, `estado`) VALUES(NULL,'".$this->cliente."','Activo');";
+            $query="INSERT INTO `cliente`(`id_cliente`, `cliente`, `estado`) VALUES(NULL,'".$this->cliente."','Activado');";
             $save=$this->db->query($query);
             if ($save==true) {
                 return true;
@@ -54,7 +54,7 @@
 
         public function update()
         {
-            $query="UPDATE cliente SET cliente='".$this->cliente."', estado='".$this->estado."' WHERE id_cliente='".$this->id_cliente."'";
+            $query="UPDATE cliente SET cliente='".$this->cliente."' WHERE id_cliente='".$this->id_cliente."'";
             $update=$this->db->query($query);
             if ($update==true) {
                 return true;

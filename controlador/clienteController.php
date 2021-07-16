@@ -62,6 +62,7 @@ if ($accion=='guardar') {
     }
     $clienteModel = new Cliente();
     $clienteModel->setCliente($cliente);
+    $clienteModel->setId_cliente($_POST['id_cliente']);
     $save =$clienteModel->update();
    
        if ($save==TRUE) {

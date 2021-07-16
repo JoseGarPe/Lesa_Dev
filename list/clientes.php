@@ -4,9 +4,9 @@ session_start();
 if (!isset($_SESSION['logged-in']) || $_SESSION['logged-in']==false ) {
   header('Location: ../login.php');
 }
-require_once "../class/usuarioModel.php";
-$Usuarios = new Usuario();
-$ListUsua = $Usuarios->selectALL();
+require_once "../class/clienteModel.php";
+$Clientes = new Cliente();
+$ListUsua = $Clientes->selectALL();
 
 ?>
 <!DOCTYPE html>
@@ -59,24 +59,24 @@ $ListUsua = $Usuarios->selectALL();
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Mantenimiento Usuarios</h1>
-          <p class="mb-4">Administracion de Usuarios, Creacion y modificacion</p>
+          <h1 class="h3 mb-2 text-gray-800">Mantenimiento Clientes</h1>
+          <p class="mb-4">Administracion de Clientes, Creacion y modificacion</p>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Usuarios Existentes</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Clientes Existentes</h6>
             </br>
               <a href="#" class="btn btn-success btn-icon-split" data-toggle="modal" data-target="#staticBackdrop">
                     <span class="icon text-white-50">
                       <i class="fas fa-user"></i>
                     </span>
-                    <span class="text">Agregar Usuarios</span>
+                    <span class="text">Agregar Clientes</span>
                   </a>
             </div>
             <div class="card-body">
               
-              <!-- tabla de usuarios -->
+              <!-- tabla de Clientes -->
 
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -84,10 +84,8 @@ $ListUsua = $Usuarios->selectALL();
                     <tr>
                       <th>ID</th>
                       <th>Nombre</th>
-                      <th>Username</th>
-                      <th>Telefono</th>
-                      <th>Acceso</th>
                       <th>Estado</th>
+                      <th>Sucursales</th>
                       <th>Editar</th>
                       <th>Eliminar</th>
                     </tr>
@@ -100,16 +98,14 @@ $ListUsua = $Usuarios->selectALL();
                       ?>
 
                       <tr>
-                      <td> <?php echo $dato['id_usuario']; ?> </td>
-                      <td> <?php echo $dato['nombre']; ?> </td>
-                      <td><?php echo $dato['usuario']; ?></td>
-                      <td><?php echo $dato['telefono']; ?> </td>
-                      <td><?php echo $dato['tipo_usuario']; ?></td>
+                      <td> <?php echo $dato['id_cliente']; ?> </td>
+                      <td> <?php echo $dato['cliente']; ?> </td>
                       <td><?php echo $dato['estado']; ?></td>
-                      <td><input type="button" name="edit" value="Editar" id_usuario="<?php echo $dato["id_usuario"]?>" class="btn btn-warning update_data" /></td>
+                      <td><input type="button" name="sucursal" value="Ver Sucursales" id_cliente="<?php echo $dato["id_cliente"]?>" class="btn btn-primary warehouse_data" /></td>
+                      <td><input type="button" name="edit" value="Editar" id_cliente="<?php echo $dato["id_cliente"]?>" class="btn btn-warning update_data" /></td>
                       <td>
                          <div class="btn-toolbar" role="toolbar">
-                          <button type="button"  name="edit" value="Eliminar" id_usuario="<?php echo $dato["id_usuario"]?>" class=" btn btn-danger delete_data" ><i class="fas fa-trash-alt"></i></button>
+                          <button type="button"  name="edit" value="Eliminar" id_cliente="<?php echo $dato["id_cliente"]?>" class=" btn btn-danger delete_data" ><i class="fas fa-trash-alt"></i></button>
                          </div>
                       </td>
                       
@@ -123,7 +119,7 @@ $ListUsua = $Usuarios->selectALL();
                 </table>
               </div>
 
-              <!-- fin Tabla de Usuarios -->
+              <!-- fin Tabla de Clientes -->
 
 
 
@@ -141,7 +137,7 @@ $ListUsua = $Usuarios->selectALL();
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Sistema de Monitoreo y Seguimiento 2020</span>
+            <span>Copyright &copy; Sistema de Mensajeria LESA</span>
           </div>
         </div>
       </footer>
@@ -161,8 +157,8 @@ $ListUsua = $Usuarios->selectALL();
   <!-- Logout Modal-->
  
 <?php include_once 'logout.php'?>
-  <!-- Modal agregar usuarios -->
-<?php include_once '../views/Usuarios/saveUsuarios.php'?>
+  <!-- Modal agregar Clientes -->
+<?php include_once '../views/Clientes/saveClientes.php'?>
 
 <div id="dataModal3" class="modal fade">  
                                   <div class="modal-dialog">  
@@ -178,9 +174,22 @@ $ListUsua = $Usuarios->selectALL();
                                        </div>  
                                   </div>  
 </div>
-  <!-- Modal modificar usuarios -->
+  <!-- Modal modificar Clientes -->
+  <div id="warehouseModal" class="modal fade">  
+                                  <div class="modal-dialog">  
+                                       <div class="modal-content modal-lg">  
+                                            <div class="modal-header">  
+                                            </div>  
+                                            <div class="modal-body" id="warehouseForm">  
 
-  <!-- Modal eliminar usuarios -->
+                                            </div>  
+                                            <div class="modal-footer">  
+                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
+                                            </div>  
+                                       </div>  
+                                  </div>  
+</div>
+  <!-- Modal eliminar Clientes -->
 
 
   <!-- Bootstrap core JavaScript-->
@@ -204,13 +213,13 @@ $ListUsua = $Usuarios->selectALL();
  $(document).ready(function(){  
       //------------------------------------------------------//
       $(document).on('click', '.update_data', function(){  
-          var id_usuario = $(this).attr("id_usuario");  
-           if(id_usuario != '')  
+          var id_cliente = $(this).attr("id_cliente");  
+           if(id_cliente != '')  
            {  
                 $.ajax({  
-                     url:"../views/Usuarios/updateUsuarios.php",  
+                     url:"../views/Clientes/updateClientes.php",  
                      method:"POST",  
-                     data:{id_usuario:id_usuario},  
+                     data:{id_cliente:id_cliente},  
                      success:function(data){  
                           $('#employee_forms3').html(data);  
                           $('#dataModal3').modal('show');  
@@ -220,18 +229,26 @@ $ListUsua = $Usuarios->selectALL();
       }); 
       //------------------------------------------------------------//
       $(document).on('click', '.delete_data', function(){  
-          var id_usuario = $(this).attr("id_usuario");  
-           if(id_usuario != '')  
+          var id_cliente = $(this).attr("id_cliente");  
+           if(id_cliente != '')  
            {  
                 $.ajax({  
-                     url:"../views/Usuarios/deleteUsuarios.php",  
+                     url:"../views/Clientes/deleteClientes.php",  
                      method:"POST",  
-                     data:{id_usuario:id_usuario},  
+                     data:{id_cliente:id_cliente},  
                      success:function(data){  
                           $('#employee_forms3').html(data);  
                           $('#dataModal3').modal('show');  
                      }  
                 });  
+           }   
+      });  
+      //------------------------------------------------------//
+      $(document).on('click', '.warehouse_data', function(){  
+          var id_cliente = $(this).attr("id_cliente");  
+           if(id_cliente != '')  
+           {  
+               window.location.href='sucursales.php?id='+id_cliente;
            }   
       }); 
       //------------------------------------------------------------//

@@ -102,16 +102,29 @@ elseif ($accion=='status') {
 	if (isset($_POST['estado'])) {
 		$estado=$_POST['estado'];
 	}else{
-		$estado=2;
+		$estado='Activo';
 	}
  $usua = new Usuario();
  $usua->setId_usuario($id_usuario);
- $usua->setTelefono($estado);
+ $usua->setEstado($estado);
  $delete= $usua-> updateStatus();
  if ($delete==TRUE) {
-		header('Location: ../list/Usuarios.php?success=correcto');
+	$informacion = [
+		"tittle" => "Correcto",
+		"text" => 'Usuario  Eliminado con exito',
+		"type" => "success",
+		"url" => "usuarios.php"
+	  ];
+	  echo json_encode($informacion);
+	}else{
+		//header('Location: ../list/Usuarios.php?error=incorrecto');
+					$informacion = [
+						"tittle" => "Error",
+						"text" => "No fue posible Eliminar el usuario, por favor verifique los datos y vuelva a intentarlo",
+						"type" => "error",
+					  ];
+					  echo json_encode($informacion);
 	}
-
 }
 elseif($accion=="modificar") {
     if (isset($_POST['nombre'])) {
