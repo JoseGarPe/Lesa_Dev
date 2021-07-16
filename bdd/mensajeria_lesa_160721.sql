@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-07-2021 a las 01:08:32
+-- Tiempo de generación: 17-07-2021 a las 01:27:26
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 7.4.13
 
@@ -88,6 +88,13 @@ CREATE TABLE `ruta` (
   `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `ruta`
+--
+
+INSERT INTO `ruta` (`id_ruta`, `ruta`, `id_usuario`) VALUES
+(2, 'R1', 3);
+
 -- --------------------------------------------------------
 
 --
@@ -169,19 +176,20 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`id_usuario`, `nombre`, `placa`, `telefono`, `usuario`, `pass`, `id_tipo_usuario`, `estado`) VALUES
 (1, 'Adminsitrador', 'P000001', '73670806', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 1, 'Activo'),
-(2, 'Aileen Recepcion', 'N/D', '7568-0000', 'aileen', '4bc14039d46f877eaf5655123e7aec45c974cec96fb04244470c20887711db79', 1, 'Desactivado');
+(2, 'Aileen Recepcion', 'N/D', '7568-0000', 'aileen', '4bc14039d46f877eaf5655123e7aec45c974cec96fb04244470c20887711db79', 1, 'Desactivado'),
+(3, 'Josue Marinero', 'M000-001', '7777-0000', 'marineroj', '4bc14039d46f877eaf5655123e7aec45c974cec96fb04244470c20887711db79', 2, 'Activo');
 
 --
 -- Disparadores `usuario`
 --
 DELIMITER $$
-CREATE TRIGGER `newRuta` BEFORE INSERT ON `usuario` FOR EACH ROW BEGIN  
-declare numeroRuta INT;
+CREATE TRIGGER `newRuta` AFTER INSERT ON `usuario` FOR EACH ROW BEGIN  
+declare numeroRuta int(11);
 IF new.id_tipo_usuario=2 THEN
-   SELECT COUNT(*) INTO numeroRuta FROM ruta;
-	  INSERT INTO ruta VALUES(CONCAT('R',numeroRuta+1), new.id_usuario);
+   set numeroRuta=(SELECT COUNT(*) FROM ruta);
+	  INSERT INTO ruta VALUES(null,CONCAT('R',numeroRuta+1), new.id_usuario);
 ELSE	
-   SELECT COUNT(*) INTO numeroRuta FROM ruta;
+   set numeroRuta=(SELECT COUNT(*) FROM ruta);
 END IF;  
 END
 $$
@@ -271,7 +279,7 @@ ALTER TABLE `registro_trabajos`
 -- AUTO_INCREMENT de la tabla `ruta`
 --
 ALTER TABLE `ruta`
-  MODIFY `id_ruta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_ruta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `stickers`
@@ -295,7 +303,7 @@ ALTER TABLE `tipo_usuario`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas
