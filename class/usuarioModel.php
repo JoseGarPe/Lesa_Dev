@@ -191,5 +191,14 @@ class Usuario extends Conexion
      }
 
   }
+
+  public function selectRuta($codigo)
+  {
+      $query="SELECT * FROM ruta WHERE id_usuario=".$codigo."";
+      $selectall=$this->db->query($query);
+      $ListUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
+      return $ListUsuario;
+  }
+
  }
 ?>

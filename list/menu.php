@@ -73,6 +73,20 @@
           </div>
         </div>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRegistros" aria-expanded="true" aria-controls="collapseRegistros">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Clientes</span>
+        </a>
+        <div id="collapseRegistros" class="collapse show " aria-labelledby="headingRegistros" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Escoja una Opcion</h6>
+
+            <a class="collapse-item" href="<?php echo (url_actual()!= null)? 'registros.php':'list/registros.php';?>">Registros de Trabajo</a>
+            <a class="btn btn-light collapse-item sticker" data-bs-toggle="modal" data-bs-target="#stickerModal">Generar Stickers</a>
+          </div>
+        </div>
+      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider">
@@ -91,6 +105,13 @@
       </div>
 
     </ul>
+
+    <!-- -->
+
+
+<!-- Modal -->
+  <?php include_once "../views/Stickers/saveStickers.php";?>
+    <!-- -->
 <script>
   //-------------------- Hosting ----------------------------------//
 const serverHosting = window.location.hostname;

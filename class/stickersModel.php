@@ -8,8 +8,10 @@
  private $stickers;
  private $created_at;
  private $updated_at;
- private $placa;
  private $id_ruta;
+ private $id_horario;
+ private $cantidad;
+
 
  public function __construct()
 	{
@@ -21,6 +23,8 @@
         $this->created_at="";
         $this->updated_at="";
         $this->id_ruta="";
+        $this->id_horario="";
+        $this->cantidad="";
     }
 
 
@@ -72,8 +76,22 @@
     public function setUpdated_at($updated_at) {
         $this->updated_at = $updated_at;
     }
+    public function getId_horario() {
+        return $this->id_horario;
+    }
+
+    public function setId_horario($id_horario) {
+        $this->id_horario = $id_horario;
+    }
+    public function getCantidad() {
+        return $this->cantidad;
+    }
+
+    public function setCantidad($Cantidad) {
+        $this->cantidad = $Cantidad;
+    }
     //--------------------------------------------------------------------------//
-    public function save()
+    public function generate()
   {
 
     $ruta="";
@@ -87,14 +105,14 @@
         $ruta=$key['ruta'];
     }
     //----------------------------------------------------------------------------//
-    $queryHorario="SELECT * FROM horario WHERE id_ruta=$this->id_horario";
+    $queryHorario="SELECT * FROM horario WHERE id_horario=$this->id_horario";
     $selectall=$this->db->query($queryHorario);
     $ListHorario=$selectall->fetch_all(MYSQLI_ASSOC);
     foreach ($ListHorario as $key) {
         $horario=$key['horario'];
     }
     //----------------------------------------------------------------------------//
-    $queryStickers="SELECT * FROM stickers ORDER BY id DESC LIMIT 1";
+    $queryStickers="SELECT * FROM sticker_genarado ORDER BY id_generado DESC LIMIT 1";
     $selectall=$this->db->query($queryStickers);
     $ListStickers=$selectall->fetch_all(MYSQLI_ASSOC);
     foreach ($ListStickers as $key) {
@@ -105,8 +123,8 @@ $length = 6;
 $correlativo = substr(str_repeat(0, $length).$number, - $length);
 $sticker=$ruta.$horario.$correlativo;
     //----------------------------------------------------------------------------//
-      $query="INSERT INTO stickers (id_stickers,id_ruta,id_horario,stickers,fecha)
-              values(NULL,".$this->id_ruta.",".$this->id_horario.",'".$sticker."','".$this->fecha."');";
+      $query="INSERT INTO sticker_generado (id_stickers,stickers,estado)
+              values($this->id_stickers,'".$sticker."','Sin Utilizar');";
       $save=$this->db->query($query);
       if ($save==true) {
           return true;
@@ -116,6 +134,37 @@ $sticker=$ruta.$horario.$correlativo;
       }   
   }
   //------------------------------------------------------------------------------------------------------------//
-
+  public function selectRutas(){
+        $query="SELECT * FROM ruta";
+        $selectall=$this->db->query($query);
+        $ListUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
+        return $ListUsuario;
+  }
+  //------------------------------------------------------------------------------------------------------------//
+  public function selectHorarios(){
+    $query="SELECT * FROM horario";
+    $selectall=$this->db->query($query);
+    $ListUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
+    return $ListUsuario;
+}
+  //------------------------------------------------------------------------------------------------------------//
+  public function selectAll(){
+    $query="SELECT s.*,r.ruta, h.horario FROM stickers s INNER JOIN ruta r ON r.id_ruta =s.id_ruta INNER JOIN horario h ON h.id_horario = s.id_horario ";
+    $selectall=$this->db->query($query);
+    $ListUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
+    return $ListUsuario;
+}
+  //------------------------------------------------------------------------------------------------------------//
+  public function save()
+  {
+      $query="INSERT INTO `stickers`(`id_stickers`, `id_ruta`, `id_horario`, `fecha`, `cantidad`) VALUES(NULL,$this->id_ruta,$this->id_horario,'$this->fecha',$this->cantidad);";
+      $save=$this->db->query($query);
+      if ($save==true) {
+          return true;
+      }else {
+          return false;
+      }   
+  }
+  //-----------------------------------------------------------------------------------------------------------------//
     }
 ?>

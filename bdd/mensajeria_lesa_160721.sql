@@ -6,7 +6,8 @@
 -- Tiempo de generación: 17-07-2021 a las 01:27:26
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 7.4.13
-
+CREATE DATABASE mensajeria_lesa;
+USE mensajeria_lesa;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
