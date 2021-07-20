@@ -123,6 +123,35 @@ if ($accion=='guardar') {
                          echo json_encode($informacion);
        }
 }
+else if($accion=='generar'){
+    $cantidad = $_POST['cantidad'];
+    $stickersModel = new Stickers();
+    $stickersModel->setId_stickers($_POST['id_stickers']);
+    $stickersModel->setId_ruta($_POST['id_ruta']);
+    $stickersModel->setId_horario($_POST['id_horario']);
+    for ($i=0; $i < $cantidad ; $i++) { 
+    $save =$stickersModel->generate();
+    }
+    
+   
+       if ($save==TRUE) {
+       $informacion = [
+           "tittle" => "Correcto",
+           "text" => $_POST['cantidad'].' stickers  generados con exito',
+           "type" => "success",
+           "url" => "stickers.php?id?".$_POST['id_stickers']
+         ];
+         echo json_encode($informacion);
+       }else{
+           //header('Location: ../list/stickersrios.php?error=incorrecto');
+                       $informacion = [
+                           "tittle" => "Error",
+                           "text" => "No fue posible guardar el stickers, por favor verifique los datos y vuelva a intentarlo",
+                           "type" => "error",
+                         ];
+                         echo json_encode($informacion);
+       }
+}
 else{
     $informacion = [
         "tittle" => "Error",

@@ -67,7 +67,7 @@ $ListUsua = $Stickers->selectALL();
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">Stickers Existentes</h6>
             </br>
-              <a href="#" class="btn btn-success btn-icon-split" data-toggle="modal" data-target="#staticBackdrop">
+              <a href="#" class="btn btn-success btn-icon-split sticker"  data-bs-toggle="modal" data-bs-target="#stickerModal">
                     <span class="icon text-white-50">
                       <i class="fas fa-user"></i>
                     </span>
@@ -107,11 +107,18 @@ $ListUsua = $Stickers->selectALL();
                       <td> <?php echo $dato['fecha']; ?></td>
                       <td> <?php echo $dato['cantidad']; ?></td>
                       <td> <?php echo $dato['estado']; ?></td>
-                      <td><input type="button" name="sucursal" value="Generar" id_Sticker="<?php echo $dato["id_sticker"]?>" class="btn btn-primary warehouse_data" /></td>
-                      <td><input type="button" name="edit" value="Editar" id_Sticker="<?php echo $dato["id_sticker"]?>" class="btn btn-warning update_data" /></td>
+                      <?php 
+                        if ($dato['estado'] =='No Generados') {
+                      ?> <td><input type="button" name="sucursal" value="Generar" id_Sticker="<?php echo $dato["id_stickers"]?>" class="btn btn-success generate_stickers" /></td>
+                       <?php
+                        }else{
+                          echo "<td><a class='btn btn-primary' href='stickers.php?id=".$dato['id_stickers']."'>Ver Stickers</a></td>";
+                        }?>
+                     
+                      <td><input type="button" name="edit" value="Editar" id_Sticker="<?php echo $dato["id_stickers"]?>" class="btn btn-warning update_data" /></td>
                       <td>
                          <div class="btn-toolbar" role="toolbar">
-                          <button type="button"  name="edit" value="Eliminar" id_Sticker="<?php echo $dato["id_sticker"]?>" class=" btn btn-danger delete_data" ><i class="fas fa-trash-alt"></i></button>
+                          <button type="button"  name="edit" value="Eliminar" id_Sticker="<?php echo $dato["id_stickers"]?>" class=" btn btn-danger delete_data" ><i class="fas fa-trash-alt"></i></button>
                          </div>
                       </td>
                       
@@ -164,7 +171,7 @@ $ListUsua = $Stickers->selectALL();
  
 <?php include_once 'logout.php'?>
   <!-- Modal agregar Stickers -->
-<?php include_once '../views/Stickers/saveStickers.php'?>
+  <?php include_once "../views/Stickers/saveStickers.php";?>
 
 <div id="dataModal3" class="modal fade">  
                                   <div class="modal-dialog">  
@@ -250,12 +257,20 @@ $ListUsua = $Stickers->selectALL();
            }   
       });  
       //------------------------------------------------------//
-      $(document).on('click', '.warehouse_data', function(){  
+      $(document).on('click', '.generate_stickers', function(){  
           var id_Sticker = $(this).attr("id_Sticker");  
-           if(id_Sticker != '')  
+          if(id_Sticker != '')  
            {  
-               window.location.href='sucursales.php?id='+id_Sticker;
-           }   
+                $.ajax({  
+                     url:"../views/Stickers/generateStickers.php",  
+                     method:"POST",  
+                     data:{id_stickers:id_Sticker},  
+                     success:function(data){  
+                          $('#employee_forms3').html(data);  
+                          $('#dataModal3').modal('show');  
+                     }  
+                });  
+           }  
       }); 
       //------------------------------------------------------------//
     });

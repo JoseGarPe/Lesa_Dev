@@ -112,18 +112,18 @@
         $horario=$key['horario'];
     }
     //----------------------------------------------------------------------------//
-    $queryStickers="SELECT * FROM sticker_genarado ORDER BY id_generado DESC LIMIT 1";
+    $queryStickers="SELECT * FROM sticker_generado ORDER BY id_generado DESC LIMIT 1";
     $selectall=$this->db->query($queryStickers);
     $ListStickers=$selectall->fetch_all(MYSQLI_ASSOC);
     foreach ($ListStickers as $key) {
-        $lastStickers=$key['id_stickers'];
+        $lastStickers=$key['id_generado'];
     }
     $number = $lastStickers+1;
 $length = 6;
 $correlativo = substr(str_repeat(0, $length).$number, - $length);
 $sticker=$ruta.$horario.$correlativo;
     //----------------------------------------------------------------------------//
-      $query="INSERT INTO sticker_generado (id_stickers,stickers,estado)
+      $query="INSERT INTO sticker_generado (id_sticker,stickers,estado)
               values($this->id_stickers,'".$sticker."','Sin Utilizar');";
       $save=$this->db->query($query);
       if ($save==true) {
@@ -165,6 +165,20 @@ $sticker=$ruta.$horario.$correlativo;
           return false;
       }   
   }
+  //------------------------------------------------------------------------------------------------------------//
+  public function selectOne($codigo){
+    $query="SELECT * FROM stickers WHERE id_stickers=$codigo";
+    $selectall=$this->db->query($query);
+    $ListUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
+    return $ListUsuario;
+}
+  //------------------------------------------------------------------------------------------------------------//
+  public function selectAllGenerados(){
+    $query="SELECT g.*,r.ruta, h.horario, s.fecha FROM sticker_generado g INNER JOIN stickers s on s.id_stickers = g.id_sticker INNER JOIN ruta r ON r.id_ruta =s.id_ruta INNER JOIN horario h ON h.id_horario = s.id_horario ";
+    $selectall=$this->db->query($query);
+    $ListUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
+    return $ListUsuario;
+}
   //-----------------------------------------------------------------------------------------------------------------//
     }
 ?>
