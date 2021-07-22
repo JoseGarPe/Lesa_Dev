@@ -31,8 +31,8 @@ document.getElementById('generar').addEventListener('click', generarInformacion)
                       function generarInformacion(){
                       var cantidad=document.getElementById('cantidadGenerar').value;
                       var id_stickers=document.getElementById('id_stickers').value;
-                      var id_ruta=document.getElementById('id_ruta').value;
-                      var id_horario=document.getElementById('id_horario').value;
+                      var id_ruta=document.getElementById('rutaGenerar').value;
+                      var id_horario=document.getElementById('horarioGenerar').value;
                       $.ajax({  
                             url:`http://${server}/Lesa_Dev/controlador/stickerController.php?accion=generar`,  
                             method:"POST",  

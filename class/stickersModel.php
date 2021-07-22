@@ -173,8 +173,8 @@ $sticker=$ruta.$horario.$correlativo;
     return $ListUsuario;
 }
   //------------------------------------------------------------------------------------------------------------//
-  public function selectAllGenerados(){
-    $query="SELECT g.*,r.ruta, h.horario, s.fecha FROM sticker_generado g INNER JOIN stickers s on s.id_stickers = g.id_sticker INNER JOIN ruta r ON r.id_ruta =s.id_ruta INNER JOIN horario h ON h.id_horario = s.id_horario ";
+  public function selectAllGenerados($sticker){
+    $query="SELECT g.*,r.ruta, h.horario, s.fecha FROM sticker_generado g INNER JOIN stickers s on s.id_stickers = g.id_sticker INNER JOIN ruta r ON r.id_ruta =s.id_ruta INNER JOIN horario h ON h.id_horario = s.id_horario WHERE g.id_sticker=$sticker";
     $selectall=$this->db->query($query);
     $ListUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
     return $ListUsuario;

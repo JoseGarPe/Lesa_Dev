@@ -1,6 +1,6 @@
 <?php 
     require_once "config/conexion.php";
-    class Sucursal extends Conexion
+    class Registro extends Conexion
     {
         
         private $id_stickers;
@@ -15,9 +15,12 @@
         private $fecha_mensajero;
         private $hora_mensajero;
         private $estado;
-        
         private $created_at;      
-        private $updated_at;   
+        private $updated_at; 
+        //------------------------------------------------------------------//
+        private $sticker;
+
+          
 
         public function __construct()
             {
@@ -126,9 +129,24 @@
                 $this->estado = $id;
             }
             //--------------------------------------------------------------------------------//
+            
+            public function getSticker() {
+                return $this->id_sticers;
+            }
+        
+            public function setSticker($id) {
+                    $query="SELECT * FROM sticker_generado WHERE stickers=$id";
+                    $selectall=$this->db->query($query);
+                    $ListUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
+                   foreach($ListUsuario as $value){
+                        $this->id_stickers=$value['id_generado'];
+                   }
+            }
+
+            //--------------------------------------------------------------------------------//
             public function saveMensajero()
             {
-                $query="INSERT INTO registro_trabajos(id_stickers,fecha_mensajero,hora_mensajero,estado,id_sucursal) VALUES($this->id_stickers,'$this->fecha_mensajero','$this->hora_mensajero','Recibido por mensajero',$this->id_sucusal);";
+                $query="INSERT INTO registro_trabajos(id_generado,fecha_mensajero,hora_mensajero,estado,id_sucursal) VALUES($this->id_stickers,'$this->fecha_mensajero','$this->hora_mensajero','Recibido por mensajero',$this->id_sucusal);";
                 $save=$this->db->query($query);
                 if ($save==true) {
                     return true;
