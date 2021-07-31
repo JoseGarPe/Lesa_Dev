@@ -20,8 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `mensajeria_lesa`
 --
-create database mensajeria_lesa;
-use mensajeria_lesa
+-- create database mensajeria_lesa;
+use mensajeria_lesa;
 
 -- --------------------------------------------------------
 
