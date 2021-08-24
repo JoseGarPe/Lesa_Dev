@@ -28,12 +28,12 @@
     $RegistroModel->setFecha_mensajero($fecha_mensajero);
     $RegistroModel->setHora_mensajero($hora_mensajero);
     $RegistroModel->setId_sucursal($id_sucursal);
-    $save =$RegistroModel->saveMensajero();
+   $save =$RegistroModel->saveMensajero(); 
    
        if ($save==TRUE) {
        $informacion = [
            "tittle" => "Correcto",
-           "text" => "Registro ".$_POST['Registro'].' guardado con exito',
+           "text" => "Registro ".$_POST['sticker'].' guardado con exito',
            "type" => "success",
            "url" => "registros.php"
          ];
@@ -56,5 +56,14 @@
         $sucursales.='<option data-tokens="'.$dataCliente['sucursal'].'" value="'.$dataCliente['id_sucursal'].'">'.$dataCliente['sucursal'].'</option>';
     }
     echo $sucursales;
+}else if($accion=='cantidad'){
+    $tipo=$_POST['tipo'];
+    $respuesta='';
+    $registro = new Registro();
+    $listRegistro = $registro->selectCantidaEstado($tipo);
+    foreach ($listRegistro as $dataRegistro) {
+        $respuesta = $dataRegistro['cantidad'];
+    }
+    echo $respuesta;
 }
 ?>

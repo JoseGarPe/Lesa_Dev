@@ -4,9 +4,9 @@ session_start();
 if (!isset($_SESSION['logged-in']) || $_SESSION['logged-in']==false ) {
   header('Location: ../login.php');
 }
-require_once "../class/usuarioModel.php";
-$Usuarios = new Usuario();
-$ListUsua = $Usuarios->selectALL();
+require_once "../class/registroModel.php";
+$Registro = new Registro();
+$ListUsua = $Registro->selectALL();
 
 ?>
 <!DOCTYPE html>
@@ -60,7 +60,7 @@ $ListUsua = $Usuarios->selectALL();
 
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Control de trabajos LESA</h1>
-          <p class="mb-4">Administracion de Usuarios, Creacion y modificacion</p>
+          <p class="mb-4">Administracion de Registro, Creacion y modificacion</p>
 
           <!-- cartas presentacion -->
            <!-- Content Row -->
@@ -72,8 +72,8 @@ $ListUsua = $Usuarios->selectALL();
                     <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">En Mnesajero</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">En Mensajero</div>
+                        <div id="mensajero" class="h5 mb-0 font-weight-bold text-gray-800">0</div>
                         </div>
                         <div class="col-auto">
                         <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -90,7 +90,7 @@ $ListUsua = $Usuarios->selectALL();
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">En Recepcion</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        <div id="recepcion" class="h5 mb-0 font-weight-bold text-gray-800">0</div>
                         </div>
                         <div class="col-auto">
                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -109,7 +109,7 @@ $ListUsua = $Usuarios->selectALL();
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">En Laboratorio</div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
-                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0</div>
+                            <div id="lab" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0</div>
                             </div>
                         </div>
                         </div>
@@ -128,7 +128,7 @@ $ListUsua = $Usuarios->selectALL();
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Finalizados</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                        <div id="salida" class="h5 mb-0 font-weight-bold text-gray-800">0</div>
                         </div>
                         <div class="col-auto">
                         <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -153,21 +153,23 @@ $ListUsua = $Usuarios->selectALL();
             </div>
             <div class="card-body">
               
-              <!-- tabla de usuarios -->
+              <!-- tabla de Registro -->
 
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Nombre</th>
-                      <th>Username</th>
-                      <th>Telefono</th>
-                      <th>Acceso</th>
-                      <th>Ruta</th>
+                      <th>Sticker</th>
+                      <th>Optica</th>
+                      <th>Sucursal</th>
+                      <th>Mensajero</th>
                       <th>Estado</th>
+                      <th>Fecha Mensajero</th>
+                      <th>Fecha Recepcion</th>
+                      <th>Fecha Laboratorio</th>
+                      <th>Fecha Enviado</th>
                       <th>Editar</th>
-                      <th>Eliminar</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -178,30 +180,18 @@ $ListUsua = $Usuarios->selectALL();
                       ?>
 
                       <tr>
-                      <td> <?php echo $dato['id_usuario']; ?> </td>
-                      <td> <?php echo $dato['nombre']; ?> </td>
-                      <td><?php echo $dato['usuario']; ?></td>
-                      <td><?php echo $dato['telefono']; ?> </td>
-                      <td><?php echo $dato['tipo_usuario']; ?></td>
-                      <td><?php
-                      if ($dato['tipo_usuario']=='Mensajero') {
-                        $ListRuta = $Usuarios->selectRuta($dato['id_usuario']);
-                        foreach ($ListRuta as $key) {
-                          echo $key['ruta'];
-                        }
-                      }else{
-                        echo 'N/D';
-                      }
-                      
-                      ?></td>
+                      <td> <?php echo $dato['id_registro']; ?> </td>
+                      <td> <?php echo $dato['stickers']; ?> </td>
+                      <td><?php echo $dato['cliente']; ?></td>
+                      <td><?php echo $dato['sucursal']; ?> </td>
+                      <td><?php echo $dato['nombre']; ?></td>
                       <td><?php echo $dato['estado']; ?></td>
-                      <td><input type="button" name="edit" value="Editar" id_usuario="<?php echo $dato["id_usuario"]?>" class="btn btn-warning update_data" /></td>
-                      <td>
-                         <div class="btn-toolbar" role="toolbar">
-                          <button type="button"  name="edit" value="Eliminar" id_usuario="<?php echo $dato["id_usuario"]?>" class=" btn btn-danger delete_data" ><i class="fas fa-trash-alt"></i></button>
-                         </div>
-                      </td>
-                      
+                      <td><?php echo $dato['fecha_mensajero'].' '.$dato['hora_mensajero']; ?></td>
+                      <td><?php echo $dato['fecha_recibido'].' '.$dato['hora_recibido']; ?></td>
+                      <td><?php echo $dato['fecha_laboratorio']; ?></td>
+                      <td><?php echo $dato['fecha_salida'].' '.$dato['hora_salida']; ?></td>
+                      <td><input type="button" name="edit" value="Editar" id_usuario="<?php echo $dato["id_registro"]?>" class="btn btn-warning update_data" /></td>
+                                      
                     </tr>
 
                       <?php
@@ -212,7 +202,7 @@ $ListUsua = $Usuarios->selectALL();
                 </table>
               </div>
 
-              <!-- fin Tabla de Usuarios -->
+              <!-- fin Tabla de Registro -->
 
 
 
@@ -250,8 +240,8 @@ $ListUsua = $Usuarios->selectALL();
   <!-- Logout Modal-->
  
 <?php include_once 'logout.php'?>
-  <!-- Modal agregar usuarios -->
-<?php include_once '../views/Usuarios/saveUsuarios.php'?>
+  <!-- Modal agregar Registro -->
+<?php include_once '../views/Registro/saveRegistro.php'?>
 
 <div id="dataModal3" class="modal fade">  
                                   <div class="modal-dialog">  
@@ -267,9 +257,9 @@ $ListUsua = $Usuarios->selectALL();
                                        </div>  
                                   </div>  
 </div>
-  <!-- Modal modificar usuarios -->
+  <!-- Modal modificar Registro -->
 
-  <!-- Modal eliminar usuarios -->
+  <!-- Modal eliminar Registro -->
 
 
   <!-- Bootstrap core JavaScript-->
@@ -291,13 +281,15 @@ $ListUsua = $Usuarios->selectALL();
    <script src="../src/js/sweetAlert2.js"></script>
 <script>
  $(document).ready(function(){  
+      //-------------------------------------------------------//
+      CantidadMensajero();
       //------------------------------------------------------//
       $(document).on('click', '.update_data', function(){  
           var id_usuario = $(this).attr("id_usuario");  
            if(id_usuario != '')  
            {  
                 $.ajax({  
-                     url:"../views/Usuarios/updateUsuarios.php",  
+                     url:"../views/Registro/updateRegistro.php",  
                      method:"POST",  
                      data:{id_usuario:id_usuario},  
                      success:function(data){  
@@ -313,7 +305,7 @@ $ListUsua = $Usuarios->selectALL();
            if(id_usuario != '')  
            {  
                 $.ajax({  
-                     url:"../views/Usuarios/deleteUsuarios.php",  
+                     url:"../views/Registro/deleteRegistro.php",  
                      method:"POST",  
                      data:{id_usuario:id_usuario},  
                      success:function(data){  
@@ -323,6 +315,17 @@ $ListUsua = $Usuarios->selectALL();
                 });  
            }   
       }); 
+      function CantidadMensajero() {
+        var tipo = 'Mensajero';
+        $.ajax({  
+                     url:"../controlador/registroController.php?accion=cantidad",  
+                     method:"POST",  
+                     data:{tipo:tipo},  
+                     success:function(data){  
+                       $('#mensajero').html(data);
+                     }  
+                });  
+      }
       //------------------------------------------------------------//
     });
 </script>

@@ -52,4 +52,12 @@ LEFT JOIN public.product_style as style on TEMP.style_id=style.id
 LEFT JOIN public.product_type as tip_ele on TEMP.sec_type=tip_ele.id
 WHERE enc.state not in('cancel','draft') and enc.date_invoice>='2020/01/01' 
 AND enc.type='out_invoice' AND enc.company_id =1
-ORDER BY ENC.DATE_INVOICE,ENC.NUMBER,deta.sequence
+ORDER BY ENC.DATE_INVOICE,ENC.NUMBER,deta.sequence;
+
+
+ SELECT ap.*,so.name AS referencia,aj.name as TipoDiario, rp.name as cliente  FROM account_payment ap 
+ JOIN account_journal aj ON aj.id = ap.journal_id 
+ JOIN sale_order so ON so.id=ap.sale_id
+ JOIN res_partner rp ON rp.id = ap.partner_id
+  WHERE  ap.payment_date = '2021-08-11' AND ap.stock_warehouse_id = 37 AND ap.state != 'cancelled';
+

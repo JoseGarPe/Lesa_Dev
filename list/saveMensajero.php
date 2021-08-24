@@ -86,7 +86,7 @@ $cliente = new Cliente();
               
               <!-- tabla de Sucursales -->
 
-                 <form action="post">
+                 <form action="#">
                     <div class="form-group">
                         <label for="email">Sticker:</label>
                         <input type="text" class="form-control" autofocus id="sticker">
@@ -128,12 +128,12 @@ $cliente = new Cliente();
                       <div class="col">
                          <div class="form-group">
                             <label for="pwd">Hora:</label>
-                            <input type="time" class="form-control" id="horaMensajero">
+                            <input type="text" class="form-control" id="horaMensajero">
                          </div>
                       </div>
                     </div>
                     <div class="row">
-                        <button class="btn btn-success">Guardar</button>
+                        <input type="button" class="btn btn-success save_data" value="Guardar">
                     </div>
                  </form>
 
@@ -246,6 +246,33 @@ $cliente = new Cliente();
                      }  
                 });  
            }   
+      });   //------------------------------------------------------------//
+      $(document).on('click', '.save_data', function(){  
+          var sticker = document.getElementById('sticker').value;  
+          var hora_mensajero = document.getElementById('horaMensajero').value;
+          var fecha_mensajero = document.getElementById('fechaMensajero').value;
+          var sucursal= document.getElementById('id_sucursal').value;
+
+        console.log(`Datos:{ ${sticker},${hora_mensajero},${fecha_mensajero},${sucursal} }`);
+           if(sticker != '')  
+           {  
+                $.ajax({  
+                     url:"../controlador/registroController.php?accion=paso1",  
+                     method:"POST",  
+                     data:{sticker:sticker,hora_mensajero:hora_mensajero,fecha_mensajero:fecha_mensajero,id_sucursal:sucursal},  
+                     success:function(data){ 
+                      var array = JSON.parse(data);
+                        if (array.type == "success") {
+                            alertaEspecial(array.tittle, "<h4>" + array.text + "</h4>", array.type);
+                        } else {
+                            alerta(array.tittle, "<h4>" + array.text + "</h4>", array.type);
+                        }
+                       console.log(data);
+                     }
+                });  
+           } else{
+              alert('la estas cagando');
+           } 
       });  
         //------------------------------------------------------//
     });

@@ -32,7 +32,7 @@
                 $this->fecha_laboratorio = "";
                 $this->fecha_salida = "";
                 $this->hora_salida = "";
-                $this->id_sacursal = "";
+                $this->id_sucursal = "";
                 $this->cliente_optica = "";
                 $this->fecha_mensajero = "";
                 $this->hora_mensajero = "";
@@ -135,7 +135,7 @@
             }
         
             public function setSticker($id) {
-                    $query="SELECT * FROM sticker_generado WHERE stickers=$id";
+                    $query="SELECT * FROM sticker_generado WHERE stickers='$id'";
                     $selectall=$this->db->query($query);
                     $ListUsuario=$selectall->fetch_all(MYSQLI_ASSOC);
                    foreach($ListUsuario as $value){
@@ -146,7 +146,7 @@
             //--------------------------------------------------------------------------------//
             public function saveMensajero()
             {
-                $query="INSERT INTO registro_trabajos(id_generado,fecha_mensajero,hora_mensajero,estado,id_sucursal) VALUES($this->id_stickers,'$this->fecha_mensajero','$this->hora_mensajero','Recibido por mensajero',$this->id_sucusal);";
+                $query="INSERT INTO registro_trabajos(id_generado,fecha_mensajero,hora_mensajero,estado,id_sucursal) VALUES($this->id_stickers,'$this->fecha_mensajero','$this->hora_mensajero','Recibido por mensajero',$this->id_sucursal);";
                 $save=$this->db->query($query);
                 if ($save==true) {
                     return true;
@@ -190,16 +190,33 @@
                 }   
             }
             public function selectAll(){
-                $query="SELECT rt.*,s.stickers,r.ruta,u.nombre,c.cliente,su.sucursal FROM registro_trabajos rt 
-                INNER JOIN stickers s ON s.id_stickers = rt.id_stickers 
+                $query="SELECT rt.*,sg.stickers,r.ruta,u.nombre,c.cliente,su.sucursal FROM registro_trabajos rt 
+                INNER JOIN sticker_generado sg ON sg.id_generado = rt.id_generado
+                INNER JOIN stickers s ON sg.id_sticker = s.id_stickers
                 INNER JOIN ruta r on r.id_ruta = s.id_ruta 
                 INNER JOIN usuario u ON u.id_usuario = r.id_usuario 
                 INNER JOIN sucursal su ON su.id_sucursal = rt.id_sucursal 
-                INNER JOIN cliente c ON c.id_cliente = su.id_cliente";
+                INNER JOIN cliente c ON c.id_cliente = su.id_cliente;";
                 $selectall=$this->db->query($query);
                 $ListRegistros=$selectall->fetch_all(MYSQLI_ASSOC);
                 return $ListRegistros;
             }
+            public function selectCantidaEstado($tipo){
+                $query="";
+                if ($tipo=='Mensajero') {
+                    $query= "SELECT COUNT(id_registro) AS cantidad FROM registro_trabajos WHERE estado='Recibido por mensajero';";
+                }elseif ($tipo=='Recepcion') {
+                    $query= "SELECT COUNT(id_registro) AS cantidad FROM registro_trabajos WHERE estado='Recibido por Recepcion';";
+                }elseif ($tipo=='Laboratorio') {
+                    $query= "SELECT COUNT(id_registro) AS cantidad FROM registro_trabajos WHERE estado='Recibido por Laboratorio';";
+                }else{
+                    $query= "SELECT COUNT(id_registro) AS cantidad FROM registro_trabajos WHERE estado='Enviado';";
+                }
+                $selectall=$this->db->query($query);
+                $ListRegistros=$selectall->fetch_all(MYSQLI_ASSOC);
+                return $ListRegistros;
+            }
+
             
 
         
