@@ -146,9 +146,15 @@ $ListUsua = $Registro->selectALL();
             </br>
               <a href="saveMensajero.php" class="btn btn-success btn-icon-split">
                     <span class="icon text-white-50">
-                      <i class="fas fa-user"></i>
+                    <i class="fas fa-motorcycle"></i>
                     </span>
-                    <span class="text">Generar Stickers</span>
+                    <span class="text">Crear Nueva Orden desde Mensajero</span>
+                  </a>
+              <a href="saveRecepcion.php" class="btn btn-success btn-icon-split">
+                    <span class="icon text-white-50">
+                    <i class="fas fa-archive"></i>
+                    </span>
+                    <span class="text">Crear Nueva Orden directa en Recepción</span>
                   </a>
             </div>
             <div class="card-body">
@@ -283,6 +289,7 @@ $ListUsua = $Registro->selectALL();
  $(document).ready(function(){  
       //-------------------------------------------------------//
       CantidadMensajero();
+      CantidadRecepcion();
       //------------------------------------------------------//
       $(document).on('click', '.update_data', function(){  
           var id_usuario = $(this).attr("id_usuario");  
@@ -315,6 +322,7 @@ $ListUsua = $Registro->selectALL();
                 });  
            }   
       }); 
+      //-----------------------------------------------------------/
       function CantidadMensajero() {
         var tipo = 'Mensajero';
         $.ajax({  
@@ -327,6 +335,17 @@ $ListUsua = $Registro->selectALL();
                 });  
       }
       //------------------------------------------------------------//
+      function CantidadRecepcion() {
+        var tipo = 'Recepcion';
+        $.ajax({  
+                     url:"../controlador/registroController.php?accion=cantidad",  
+                     method:"POST",  
+                     data:{tipo:tipo},  
+                     success:function(data){  
+                       $('#recepcion').html(data);
+                     }  
+                });  
+      }
     });
 </script>
 </body>

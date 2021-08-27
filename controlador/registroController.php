@@ -65,5 +65,50 @@
         $respuesta = $dataRegistro['cantidad'];
     }
     echo $respuesta;
+}else if ($accion=='pasoIndependiente') {
+    if (isset($_POST['sticker'])) {
+        $sticker=$_POST['sticker'];
+    }else{
+        $sticker=NULL;
+    }
+    if (isset($_POST['fecha_recibido'])) {
+        $fecha_mensajero=$_POST['fecha_recibido'];
+    }else{
+        $fecha_mensajero=NULL;
+    }
+    if (isset($_POST['hora_recibido'])) {
+        $hora_mensajero=$_POST['hora_recibido'];
+    }else{
+        $hora_mensajero=NULL;
+    }
+    if (isset($_POST['id_sucursal'])) {
+        $id_sucursal=$_POST['id_sucursal'];
+    }else{
+        $id_sucursal=NULL;
+    }
+    $RegistroModel = new Registro();
+    $RegistroModel->setSticker($sticker);
+    $RegistroModel->setFecha_recibido($fecha_mensajero);
+    $RegistroModel->setHora_recibido($hora_mensajero);
+    $RegistroModel->setId_sucursal($id_sucursal);
+   $save =$RegistroModel->saveIndependiente(); 
+   
+       if ($save==TRUE) {
+       $informacion = [
+           "tittle" => "Correcto",
+           "text" => "Registro ".$_POST['sticker'].' guardado con exito del ',
+           "type" => "success",
+           "url" => "registros.php"
+         ];
+         echo json_encode($informacion);
+       }else{
+           //header('Location: ../list/Registrorios.php?error=incorrecto');
+                       $informacion = [
+                           "tittle" => "Error",
+                           "text" => "No fue posible guardar el Registro, por favor verifique los datos y vuelva a intentarlo, ".$_SESSION['mensaje'],
+                           "type" => "error",
+                         ];
+                         echo json_encode($informacion);
+       }
 }
 ?>

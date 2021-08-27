@@ -53,7 +53,7 @@
             <h6 class="collapse-header">Escoja una Opcion</h6>
 
             <a class="collapse-item" href="<?php echo (url_actual()!= null)? 'usuarios.php':'list/usuarios.php';?>">Usuarios</a>
-            <a class="collapse-item" href="<?php echo (url_actual()!= null)? 'Actividades.php':'list/Actividades.php';?>">Actividades</a>
+            <a class="collapse-item" href="<?php echo (url_actual()!= null)? 'Actividades.php':'list/rutas.php';?>">Rutas</a>
           </div>
         </div>
       </li>
@@ -82,6 +82,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Escoja una Opcion</h6>
 
+            <a class="collapse-item" href="<?php echo (url_actual()!= null)? 'saveMensajero.php':'list/saveMensajero.php';?>">Nueva Orden</a>
             <a class="collapse-item" href="<?php echo (url_actual()!= null)? 'registros.php':'list/registros.php';?>">Registros de Trabajo</a>
            <!-- <a class="btn btn-light collapse-item sticker" data-bs-toggle="modal" data-bs-target="#stickerModal">Generar Stickers</a> -->
             <a class="collapse-item" href="<?php echo (url_actual()!= null)? 'encabezadoStickers.php':'list/encabezadoStickers.php';?>">Encabezado Stickers</a>

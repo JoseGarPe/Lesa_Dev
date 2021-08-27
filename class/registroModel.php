@@ -168,7 +168,7 @@
             }
             public function saveLaboratorio()
             {
-                $query="UPDATE registro_trabajos SET orden_pedido='$this->orden_pedido',fecha_labotario='$this->fecha_labotario',estado='Recibido en Recepcion',updated_at=CURDATE() WHERE id_stickers=$this->id_stickers";
+                $query="UPDATE registro_trabajos SET orden_pedido='$this->orden_pedido',fecha_labotario='$this->fecha_labotario',estado='Recibido en Laboratorio',updated_at=CURDATE() WHERE id_stickers=$this->id_stickers";
                 $save=$this->db->query($query);
                 if ($save==true) {
                     return true;
@@ -206,7 +206,7 @@
                 if ($tipo=='Mensajero') {
                     $query= "SELECT COUNT(id_registro) AS cantidad FROM registro_trabajos WHERE estado='Recibido por mensajero';";
                 }elseif ($tipo=='Recepcion') {
-                    $query= "SELECT COUNT(id_registro) AS cantidad FROM registro_trabajos WHERE estado='Recibido por Recepcion';";
+                    $query= "SELECT COUNT(id_registro) AS cantidad FROM registro_trabajos WHERE estado='Recibido por recepcion';";
                 }elseif ($tipo=='Laboratorio') {
                     $query= "SELECT COUNT(id_registro) AS cantidad FROM registro_trabajos WHERE estado='Recibido por Laboratorio';";
                 }else{
@@ -215,6 +215,19 @@
                 $selectall=$this->db->query($query);
                 $ListRegistros=$selectall->fetch_all(MYSQLI_ASSOC);
                 return $ListRegistros;
+            }
+            //---------------------------------------------------------------------------------------------------------------------------------------------//
+            public function saveIndependiente()
+            {
+                $query="INSERT INTO registro_trabajos(id_generado,fecha_recibido,hora_recibido,estado,id_sucursal) VALUES($this->id_stickers,'$this->fecha_recibido','$this->hora_recibido','Recibido por recepcion',$this->id_sucursal);";
+                $save=$this->db->query($query);
+                if ($save==true) {
+                    return true;
+                }else {
+                    
+                    $_SESSION['mensaje']= $this->db->error;
+                    return false;
+                }   
             }
 
             
