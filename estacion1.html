@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="./src/iconsFA/css/all.css" rel="stylesheet"> 
-    <title>Estacion 2</title>
+    <title>Estaciones de Trabajo</title>
   </head>
   <body>
     <div class="container">
@@ -36,156 +36,159 @@ document.addEventListener('keyup', logKey);
   var w;
 function logKey(e) {
   if (log.value.length == 9) {
+      var data = log.value;
+      var estacion = data.toUpperCase();
+      console.log(estacion);
   console.log(`Ingresara a: ${log.value}`);
-        if (log.value=='ES3000RED') {
+        if (estacion=='ES3000RED') {
             console.log('Recubrimiento Dipping');
             if (!w || w.closed) {
-                w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=2&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=2&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
               } else {
                      w.close();                
-                 if (log.value=='ES3000RED' && w.closed) {
+                 if (estacion=='ES3000RED' && w.closed) {
                     console.log('window is already opened');
-                    w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=2&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                 }else if (log.value=='ES3000RES' && w.closed) {
-                    w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=8&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES30000AR' && w.closed) {
-                        w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=3&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                    w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=2&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                 }else if (estacion=='ES3000RES' && w.closed) {
+                    w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=8&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                    }else if (estacion=='ES30000AR' && w.closed) {
+                        w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=3&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
                     }else if (log.value=='ES10000TA' && w.closed) {
                         w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=1&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES20000BI' && w.closed) {
+                    }else if (estacion=='ES20000BI' && w.closed) {
                         console.log('window is already opened');
                         w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=4&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES40000CA' && w.closed) {
+                    }else if (estacion=='ES40000CA' && w.closed) {
                         console.log('window is already opened');
                         w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=6&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
                     }
             }
             w.focus();
             log.value="";
-        }else if (log.value=='ES3000RES') {
+        }else if (estacion=='ES3000RES') {
             console.log('Recubrimiento Spinning');
             if (!w || w.closed) {
-                w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=8&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=8&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
             } else {  
                      w.close();
-                 if (log.value=='ES3000RED' && w.closed) {
-                    w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=2&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");  
-                 }else if (log.value=='ES3000RES' && w.closed) {
+                 if (estacion=='ES3000RED' && w.closed) {
+                    w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=2&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");  
+                 }else if (estacion=='ES3000RES' && w.closed) {
                       console.log('window is already opened'); 
-                      w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=8&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES30000AR' && w.closed) {
-                        w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=3&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES10000TA' && w.closed) {
+                      w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=8&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                    }else if (estacion=='ES30000AR' && w.closed) {
+                        w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=3&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                    }else if (estacion=='ES10000TA' && w.closed) {
                         console.log('window is already opened');
                         w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=1&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES20000BI' && w.closed) {
+                    }else if (estacion=='ES20000BI' && w.closed) {
                         console.log('window is already opened');
                         w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=4&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES40000CA' && w.closed) {
+                    }else if (estacion=='ES40000CA' && w.closed) {
                         console.log('window is already opened');
                         w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=6&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
                     }
             }
             w.focus();
             log.value="";
-        }else if (log.value=='ES30000AR') {
+        }else if (estacion=='ES30000AR') {
             console.log('Antirreflejo');
             if (!w || w.closed) {
-                w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=3&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=3&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
             } else {
                      w.close();                
-                if (log.value=='ES3000RED' && w.closed) {
-                    w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=2&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");  
-                 }else if (log.value=='ES3000RES' && w.closed) {
-                    w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=8&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES30000AR' && w.closed) {
+                if (estacion=='ES3000RED' && w.closed) {
+                    w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=2&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");  
+                 }else if (estacion=='ES3000RES' && w.closed) {
+                    w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=8&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                    }else if (estacion=='ES30000AR' && w.closed) {
                         console.log('window is already opened');
-                        w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=3&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES10000TA' && w.closed) {
+                        w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=3&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                    }else if (estacion=='ES10000TA' && w.closed) {
                         console.log('window is already opened');
                         w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=1&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES20000BI' && w.closed) {
+                    }else if (estacion=='ES20000BI' && w.closed) {
                         console.log('window is already opened');
                         w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=4&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES40000CA' && w.closed) {
+                    }else if (estacion=='ES40000CA' && w.closed) {
                         console.log('window is already opened');
                         w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=6&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
                     }
             }
             w.focus();
             log.value="";
-        }else if (log.value=='ES10000TA') {
+        }else if (estacion=='ES10000TA') {
             console.log('Tallado');
             if (!w || w.closed) {
                 w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=1&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
             } else {
                      w.close();                
-                if (log.value=='ES3000RED' && w.closed) {
-                    w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=2&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");  
-                 }else if (log.value=='ES3000RES' && w.closed) {
-                    w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=8&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES30000AR' && w.closed) {
+                if (estacion=='ES3000RED' && w.closed) {
+                    w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=2&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");  
+                 }else if (estacion=='ES3000RES' && w.closed) {
+                    w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=8&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                    }else if (estacion=='ES30000AR' && w.closed) {
                         console.log('window is already opened');
-                        w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=3&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES10000TA' && w.closed) {
+                        w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=3&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                    }else if (estacion=='ES10000TA' && w.closed) {
                         console.log('window is already opened');
                         w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=1&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES20000BI' && w.closed) {
+                    }else if (estacion=='ES20000BI' && w.closed) {
                         console.log('window is already opened');
                         w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=4&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES40000CA' && w.closed) {
+                    }else if (estacion=='ES40000CA' && w.closed) {
                         console.log('window is already opened');
                         w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=6&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
                     }
             }
             w.focus();
             log.value="";
-        }else if (log.value=='ES20000BI') {
-            console.log('Biselado');
+        }else if (estacion=='ES20000BI') {
+            console.log('Biselado');2
             if (!w || w.closed) {
                 w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=4&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
             } else {
                      w.close();                
-                if (log.value=='ES3000RED' && w.closed) {
-                    w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=2&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");  
-                 }else if (log.value=='ES3000RES' && w.closed) {
-                    w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=8&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES30000AR' && w.closed) {
+                if (estacion=='ES3000RED' && w.closed) {
+                    w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=2&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");  
+                 }else if (estacion=='ES3000RES' && w.closed) {
+                    w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=8&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                    }else if (estacion=='ES30000AR' && w.closed) {
                         console.log('window is already opened');
-                        w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=3&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES10000TA' && w.closed) {
+                        w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=3&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                    }else if (estacion=='ES10000TA' && w.closed) {
                         console.log('window is already opened');
                         w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=1&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES20000BI' && w.closed) {
+                    }else if (estacion=='ES20000BI' && w.closed) {
                         console.log('window is already opened');
                         w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=4&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES40000CA' && w.closed) {
+                    }else if (estacion=='ES40000CA' && w.closed) {
                         console.log('window is already opened');
                         w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=6&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
                     }
             }
             w.focus();
             log.value="";
-        }else if (log.value=='ES40000CA') {
+        }else if (estacion=='ES40000CA') {
             console.log('Biselado');
             if (!w || w.closed) {
                 w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=6&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
             } else {
                      w.close();                
-                if (log.value=='ES3000RED' && w.closed) {
-                    w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=2&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");  
-                 }else if (log.value=='ES3000RES' && w.closed) {
-                    w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=8&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES30000AR' && w.closed) {
+                if (estacion=='ES3000RED' && w.closed) {
+                    w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=2&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");  
+                 }else if (estacion=='ES3000RES' && w.closed) {
+                    w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=8&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                    }else if (estacion=='ES30000AR' && w.closed) {
                         console.log('window is already opened');
-                        w = window.open("https://pruebav2.indexseven.com/web?debug#action=933&active_id=3&model=mrp.workorder&view_type=list&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES10000TA' && w.closed) {
+                        w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=3&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
+                    }else if (estacion=='ES10000TA' && w.closed) {
                         console.log('window is already opened');
                         w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=1&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES20000BI' && w.closed) {
+                    }else if (estacion=='ES20000BI' && w.closed) {
                         console.log('window is already opened');
                         w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=4&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
-                    }else if (log.value=='ES40000CA' && w.closed) {
+                    }else if (estacion=='ES40000CA' && w.closed) {
                         console.log('window is already opened');
                         w = window.open("https://pruebav2.indexseven.com/web?debug=1#action=933&active_id=6&model=mrp.workorder&view_type=kanban&menu_id=286","_blank","menubar = 0, scrollbars = 0");
                     }
