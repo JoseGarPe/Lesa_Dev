@@ -229,6 +229,18 @@
                     return false;
                 }   
             }
+            public function saveLND($stickers)
+            {
+                $query="INSERT INTO registro_trabajos(sticker,fecha_recibido,hora_recibido,estado,id_sucursal) VALUES($stickers,'$this->fecha_recibido','$this->hora_recibido','Recibido por recepcion',$this->id_sucursal);";
+                $save=$this->db->query($query);
+                if ($save==true) {
+                    return true;
+                }else {
+                    
+                    $_SESSION['mensaje']= $this->db->error;
+                    return false;
+                }   
+            }
 
             
 
