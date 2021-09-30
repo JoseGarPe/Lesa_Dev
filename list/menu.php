@@ -83,6 +83,7 @@
             <h6 class="collapse-header">Escoja una Opcion</h6>
 
             <a class="collapse-item" href="<?php echo (url_actual()!= null)? 'saveMensajero.php':'list/saveMensajero.php';?>">Nueva Orden</a>
+            <a class="collapse-item" href="<?php echo (url_actual()!= null)? 'saveMensajeroLND.php':'list/saveMensajeroLND.php';?>">Nueva Orden LND</a>
             <a class="collapse-item" href="<?php echo (url_actual()!= null)? 'registros.php':'list/registros.php';?>">Registros de Trabajo</a>
            <!-- <a class="btn btn-light collapse-item sticker" data-bs-toggle="modal" data-bs-target="#stickerModal">Generar Stickers</a> -->
             <a class="collapse-item" href="<?php echo (url_actual()!= null)? 'encabezadoStickers.php':'list/encabezadoStickers.php';?>">Encabezado Stickers</a>

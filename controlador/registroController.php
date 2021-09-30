@@ -110,5 +110,61 @@
                          ];
                          echo json_encode($informacion);
        }
+}else if ($accion=='paso1LND') {
+    if (isset($_POST['sticker'])) {
+        $sticker=$_POST['sticker'];
+    }else{
+        $sticker=NULL;
+    }
+    if (isset($_POST['fecha_mensajero'])) {
+        $fecha_mensajero=$_POST['fecha_mensajero'];
+    }else{
+        $fecha_mensajero=NULL;
+    }
+    if (isset($_POST['hora_mensajero'])) {
+        $hora_mensajero=$_POST['hora_mensajero'];
+    }else{
+        $hora_mensajero=NULL;
+    }
+    if (isset($_POST['id_sucursal'])) {
+        $id_sucursal=$_POST['id_sucursal'];
+    }else{
+        $id_sucursal=NULL;
+    }
+    session_start();
+    $id_usuario=$_SESSIOM['id_usuario'];
+    $RegistroModel = new Registro();
+    $RegistroModel->setFecha_mensajero($fecha_mensajero);
+    $RegistroModel->setHora_mensajero($hora_mensajero);
+    $RegistroModel->setId_sucursal($id_sucursal);
+   $save =$RegistroModel->saveLND_Mensajero($sticker,$id_usuario); 
+   
+       if ($save==TRUE) {
+       $informacion = [
+           "tittle" => "Correcto",
+           "text" => "Registro ".$_POST['sticker'].' guardado con exito',
+           "type" => "success",
+           "url" => "registros.php"
+         ];
+         echo json_encode($informacion);
+       }else{
+           //header('Location: ../list/Registrorios.php?error=incorrecto');
+                       $informacion = [
+                           "tittle" => "Error",
+                           "text" => "No fue posible guardar el Registro, por favor verifique los datos y vuelva a intentarlo",
+                           "type" => "error",
+                         ];
+                         echo json_encode($informacion);
+       }
+}else if($accion=='prueba'){
+    echo("Congratulations!\n");
+    $cmd = system("py insert_pedidos.py",$ret);
+    echo("ret is $ret  \n");
+
+    exec("python insert_pedidos.py",$array,$ret);
+  //  echo("result : $array\n");
+    var_dump($array);
+    echo("ret is $ret");
+
 }
 ?>

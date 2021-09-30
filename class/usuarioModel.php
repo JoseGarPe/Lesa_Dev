@@ -161,6 +161,7 @@ class Usuario extends Conexion
               $_SESSION['id_usuario']=$key['id_usuario'];
               $_SESSION['tipo']=$key['tipo'];
               $_SESSION['tiempo']=time();
+              $_SESSION['acceso']='';
           }
            return true;
       }else{

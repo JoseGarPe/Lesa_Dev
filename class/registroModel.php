@@ -241,6 +241,18 @@
                     return false;
                 }   
             }
+            public function saveLND_Mensajero($stickers,$id_usuario)
+            {
+                $query="INSERT INTO registro_trabajos(sticker,fecha_mensajero,hora_mensajero,estado,id_sucursal,id_usuario) VALUES($stickers,'$this->fecha_mensajero','$this->hora_mensajero','Recibido por mensajero',$this->id_sucursal,$id_usuario);";
+                $save=$this->db->query($query);
+                if ($save==true) {
+                    return true;
+                }else {
+                    
+                    $_SESSION['mensaje']= $this->db->error;
+                    return false;
+                }   
+            }
 
             
 
